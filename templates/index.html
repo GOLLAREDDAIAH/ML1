@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Symptom Checker</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+  <div class="container">
+    <h1>Symptom Checker</h1>
+    
+    <form action="/predict" method="post">
+      <label for="symptoms">Enter your symptoms:</label>
+      <input type="text" id="symptoms" name="symptoms">
+      <button type="submit">Check</button>
+    </form>
+
+    <div id="results">
+      {% if prediction %}
+        <h2>Possible Disease:</h2>
+        <div class="prediction-result">{{ prediction }}</div>
+      {% elif no_match %}
+        <div class="warning">
+          <h2>No Matching Symptoms Found</h2>
+          <p>We couldn't find a match for your symptoms in our database. Please try describing your symptoms differently or consult a healthcare professional.</p>
+        </div>
+      {% elif error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
